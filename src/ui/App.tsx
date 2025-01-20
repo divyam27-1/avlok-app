@@ -1,8 +1,9 @@
 import './App.css'
-import CameraFeed from './pages/CameraFeed';
+// import CameraFeed from './pages/CameraFeed';
+import MapFeed from './pages/MapFeed';
 
 function App() {
-  return <CameraFeed></CameraFeed>
+  return <MapFeed></MapFeed>
 }
 
 export default App;

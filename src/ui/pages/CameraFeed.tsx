@@ -1,8 +1,11 @@
 import React from 'react'
+import Webcam from '../components/Webcam'
 
 const CameraFeed = () => {
   return (
-    <div className='relative'></div>
+    <div className='relative bg-white'>
+        <Webcam></Webcam>
+    </div>
   )
 }
 

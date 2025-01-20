@@ -16,6 +16,7 @@ function App() {
 
 export default App;
 
-// TODO: Add Routing Feature
+// TODO: Add Routing Feature (Done)
 // TODO: Add Drone Information Feature
 // TODO: Add path and point feature using leaflet
+// TODO: Add Zoom Limit in Open Street API Map (if possible)

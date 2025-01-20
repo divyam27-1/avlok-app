@@ -1,9 +1,17 @@
 import './App.css'
-// import CameraFeed from './pages/CameraFeed';
+import { BrowserRouter, Routes, Route} from 'react-router-dom';
+import CameraFeed from './pages/CameraFeed';
 import MapFeed from './pages/MapFeed';
 
 function App() {
-  return <MapFeed></MapFeed>
+  return (
+    <BrowserRouter>
+    <Routes>
+      <Route path='/' element={<CameraFeed></CameraFeed>}></Route>
+      <Route path='/map' element={<MapFeed></MapFeed>}></Route>
+    </Routes>
+    </BrowserRouter>
+  )
 }
 
 export default App;

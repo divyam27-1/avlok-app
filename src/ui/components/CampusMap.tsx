@@ -1,9 +1,12 @@
 import React, { useRef, useState } from 'react';
 import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import L from 'leaflet';
+import L, { LatLng } from 'leaflet';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+import { getShortestPath, getLastConfirmedNode, getCurrentTargetNode, getGraph } from '../../electron/drone_path';
+
+const graph = getGraph();
 
 const DefaultIcon = L.icon({
     iconUrl: markerIcon,
@@ -21,7 +24,18 @@ const CampusMap = () => {
     const MapClickHandler = () => {
         useMapEvents({
             click(e){
-                setMarkerPos(e.latlng);
+                // setMarkerPos(e.latlng);
+                let lastNode = getLastConfirmedNode();
+                let targetNode = getCurrentTargetNode();
+                if (lastNode && targetNode){
+                    let route = getShortestPath(lastNode, targetNode);
+                    for (let node of route){
+                        let nodeData = graph[node];
+                        setMarkerPos(new LatLng(nodeData.latitude, nodeData.longitude));
+                    }
+                } else {
+                    setMarkerPos(e.latlng);
+                }
             },
         });
         return null;

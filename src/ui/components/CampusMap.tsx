@@ -1,5 +1,5 @@
-import React, { useRef } from 'react';
-import { MapContainer, TileLayer, Marker } from 'react-leaflet';
+import React, { useRef, useState } from 'react';
+import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
@@ -11,9 +11,22 @@ const DefaultIcon = L.icon({
     iconAnchor: [12, 41], // Adjust anchor for proper placement
 });
 
+
 L.Marker.prototype.options.icon = DefaultIcon;
 
 const CampusMap = () => {
+
+    const [markerPos, setMarkerPos] = useState<L.LatLng | null>(null);
+
+    const MapClickHandler = () => {
+        useMapEvents({
+            click(e){
+                setMarkerPos(e.latlng);
+            },
+        });
+        return null;
+    }
+
     const mapRef = useRef(null);
     const latitude = 51.505;
     const longitude = -0.09;
@@ -33,7 +46,8 @@ const CampusMap = () => {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             >
             </TileLayer>
-            <Marker position={[latitude, longitude]} />
+            <MapClickHandler></MapClickHandler>
+            {markerPos && <Marker position={markerPos}></Marker>}
         </MapContainer>
     )
 }

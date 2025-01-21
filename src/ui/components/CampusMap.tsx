@@ -21,6 +21,7 @@ L.Marker.prototype.options.icon = DefaultIcon;
 const CampusMap = () => {
 
     // const [markerPos, setMarkerPos] = useState<L.LatLng | null>(null);
+    const [currentNode, setCurrentNode] = useState(getLastConfirmedNode());
     const [allNodes, setAllNodes] = useState<L.LatLng[]>([]);
     const [routePath, setRoutePath] = useState<L.LatLng[]>([]);
 
@@ -30,12 +31,16 @@ const CampusMap = () => {
     }, []);
     
 
+    
 
-    const MapClickHandler = () => {
-        useMapEvents({
-            click(e) {
-                const lastNode = getLastConfirmedNode();
-                const targetNode = getCurrentTargetNode();
+    const mapRef = useRef(null);
+    const latitude = 12.9716;
+    const longitude = 77.5946;
+
+    const handleMarkerClick = (node) => {
+        setRoutePath([]);
+        const lastNode = currentNode;
+        const targetNode = node['id'];
     
                 if (lastNode && targetNode) {
                     const route = getShortestPath(lastNode, targetNode);
@@ -47,20 +52,12 @@ const CampusMap = () => {
                             return new L.LatLng(nodeData.latitude, nodeData.longitude);
                         });
                         setRoutePath(path); // Set the route for the polyline
+                        setCurrentNode(targetNode);
                     }
                 } else {
                     console.warn("Last node or target node is missing");
                 }
-            },
-        });
-    
-        return null;
-    };
-    
-
-    const mapRef = useRef(null);
-    const latitude = 12.9716;
-    const longitude = 77.5946;
+      };
 
     return (
         // <div>
@@ -77,9 +74,10 @@ const CampusMap = () => {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             >
             </TileLayer>
-            <MapClickHandler></MapClickHandler>
             {allNodes.map((pos, idx) => (
-        <Marker key={`node-${idx}`} position={pos}>
+        <Marker key={`node-${idx}`} position={pos} eventHandlers={{
+            click: () => handleMarkerClick(graph[`node${idx + 1}`]),
+        }}>
             <Tooltip>
                 <span>Node {idx + 1}</span>
             </Tooltip>

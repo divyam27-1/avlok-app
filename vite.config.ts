@@ -8,6 +8,9 @@ export default defineConfig({
   build:{
     outDir: 'dist-react',
   },
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'leaflet', 'react-leaflet'],
+  }
   // server: {
   //   port: 199,
   //   strictPort: true,

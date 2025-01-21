@@ -38,6 +38,7 @@ const CampusMap = () => {
     const longitude = 77.5946;
 
     const handleMarkerClick = (node) => {
+        if (node === currentNode) return;
         setRoutePath([]);
         const lastNode = currentNode;
         const targetNode = node['id'];

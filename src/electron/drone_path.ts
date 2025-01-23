@@ -1,28 +1,4 @@
-import {Graph, Node} from './utils.js'
-
-const graph: Graph = {
-    "node1": {
-        id: "node1",
-        latitude: 12.9716,
-        longitude: 77.5946,
-        altitude: 300,
-        connections: ["node2", "node3"],
-    },
-    "node2": {
-        id: "node2",
-        latitude: 12.2958,
-        longitude: 76.6394,
-        altitude: 320,
-        connections: ["node1", "node4"],
-    },
-    "node3": {
-        id: "node3",
-        latitude: 13.0827,
-        longitude: 80.2707,
-        altitude: 350,
-        connections: ["node1"],
-    },
-};
+import { drone_graph } from './temp_graph_db.js';
 
 let lastConfirmedNode: string | null = "node1";
 
@@ -35,7 +11,7 @@ let currentTargetNode: string | null = "node3";
  * @returns An array of node IDs representing the shortest path, or an empty array if no path exists.
  */
 export function getShortestPath(startNodeId: string, endNodeId: string): string[] {
-    if (!graph[startNodeId] || !graph[endNodeId]) {
+    if (!drone_graph[startNodeId] || !drone_graph[endNodeId]) {
         console.warn("Invalid node IDs");
         return [];
     }
@@ -44,7 +20,7 @@ export function getShortestPath(startNodeId: string, endNodeId: string): string[
     const previousNodes: Record<string, string | null> = {};
     const unvisitedNodes = new Set<string>();
 
-    for (const nodeId in graph) {
+    for (const nodeId in drone_graph) {
         distances[nodeId] = Infinity;
         previousNodes[nodeId] = null;
         unvisitedNodes.add(nodeId);
@@ -68,7 +44,7 @@ export function getShortestPath(startNodeId: string, endNodeId: string): string[
 
         unvisitedNodes.delete(currentNodeId);
 
-        for (const neighbor of graph[currentNodeId].connections) {
+        for (const neighbor of drone_graph[currentNodeId].connections) {
             if (!unvisitedNodes.has(neighbor)) continue;
 
             const newDistance = distances[currentNodeId] + 1;
@@ -99,5 +75,5 @@ export function getCurrentTargetNode(): string | null {
 }
 
 export function getGraph() {
-    return graph;
+    return drone_graph;
 }

@@ -1,30 +1,22 @@
-import { useState } from 'react'
-
 import './App.css'
-import CampusMap from './CampusMap'
+import { BrowserRouter, Routes, Route} from 'react-router-dom';
+import CameraFeed from './pages/CameraFeed';
+import MapFeed from './pages/MapFeed';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <h1>Campus Map</h1>
-        <CampusMap />
-      </div>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <BrowserRouter>
+    <Routes>
+      <Route path='/' element={<CameraFeed></CameraFeed>}></Route>
+      <Route path='/map' element={<MapFeed></MapFeed>}></Route>
+    </Routes>
+    </BrowserRouter>
   )
 }
 
-export default App
+export default App;
+
+// TODO: Add Routing Feature (Done)
+// TODO: Add Drone Information Feature
+// TODO: Add path and point feature using leaflet
+// TODO: Add Zoom Limit in Open Street API Map (if possible)

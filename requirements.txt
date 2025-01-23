@@ -1,0 +1,2 @@
+npm install --save-dev npm-run-all
+npm install --save-dev cross-env

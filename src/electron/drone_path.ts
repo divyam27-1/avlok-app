@@ -97,3 +97,7 @@ export function getLastConfirmedNode(): string | null {
 export function getCurrentTargetNode(): string | null {
     return currentTargetNode;
 }
+
+export function getGraph() {
+    return graph;
+}

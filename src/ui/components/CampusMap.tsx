@@ -1,92 +1,111 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import L, { LatLng } from 'leaflet';
+import L from 'leaflet';
 import { Polyline, Tooltip } from 'react-leaflet';
-import markerIcon from 'leaflet/dist/images/marker-icon.png';
-import markerShadow from 'leaflet/dist/images/marker-shadow.png';
-import { getShortestPath, getLastConfirmedNode, getCurrentTargetNode, getGraph } from '../../electron/drone_path';
+import { getShortestPath, getLastConfirmedNode, getGraph } from '../../electron/drone_path';
+//import CustomThreeLayer from './ThreeLayer';
 
+// Fetch the graph data
 const graph = getGraph();
 
-const DefaultIcon = L.icon({
-    iconUrl: markerIcon,
-    shadowUrl: markerShadow,
-    iconAnchor: [12, 41], // Adjust anchor for proper placement
-});
+interface CampusMapProps {
+    dronePosition: L.LatLng | null;
+    setDronePosition: (pos: L.LatLng) => void;
+    setDroneAltitude: (altitude: number) => void;
+    setDroneTargetNode: (nodeId: string) => void;
+}
 
+// Default Leaflet marker
+const DefaultIcon = L.icon({
+    iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
+    shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
+    iconAnchor: [12, 41],
+});
 
 L.Marker.prototype.options.icon = DefaultIcon;
 
-const CampusMap = () => {
 
-    // const [markerPos, setMarkerPos] = useState<L.LatLng | null>(null);
+const DroneIcon = L.icon({
+    iconUrl: '../../../assets/applogo.png',
+    iconSize: [33, 33], 
+    iconAnchor: [15, 15], 
+});
+
+const CampusMap = ({ dronePosition, setDronePosition, setDroneAltitude, setDroneTargetNode }: CampusMapProps) => {
     const [currentNode, setCurrentNode] = useState(getLastConfirmedNode());
     const [allNodes, setAllNodes] = useState<L.LatLng[]>([]);
     const [routePath, setRoutePath] = useState<L.LatLng[]>([]);
+    const mapRef = useRef(null);
+    const [map, setMap] = useState<L.Map | null>(null);
+
+    useEffect(() => {
+        if (mapRef.current) {
+            setMap(mapRef.current);
+        }
+    }, [mapRef]);
 
     useEffect(() => {
         const nodes = Object.values(graph).map((node) => new L.LatLng(node.latitude, node.longitude));
-        setAllNodes(nodes); // Set all nodes as markers
+        setAllNodes(nodes);
     }, []);
-    
 
-    
+    const moveDrone = async (path: L.LatLng[], targetNodeId: string) => {
+        setDroneTargetNode(targetNodeId);
+        for (const point of path) {
+            setDronePosition(point);
+            setDroneAltitude(20);
+            await new Promise(res => setTimeout(res, 1000));
+        }
+    };
 
-    const mapRef = useRef(null);
-    const latitude = 12.9716;
-    const longitude = 77.5946;
-
-    const handleMarkerClick = (node) => {
+    const handleMarkerClick = (node: any) => {
         if (node === currentNode) return;
         setRoutePath([]);
         const lastNode = currentNode;
         const targetNode = node['id'];
-    
-                if (lastNode && targetNode) {
-                    const route = getShortestPath(lastNode, targetNode);
-    
-                    if (route.length > 0) {
-                        // Convert the route into LatLng objects
-                        const path = route.map((nodeId) => {
-                            const nodeData = graph[nodeId];
-                            return new L.LatLng(nodeData.latitude, nodeData.longitude);
-                        });
-                        setRoutePath(path); // Set the route for the polyline
-                        setCurrentNode(targetNode);
-                    }
-                } else {
-                    console.warn("Last node or target node is missing");
-                }
-      };
+
+        if (lastNode && targetNode) {
+            const route = getShortestPath(lastNode, targetNode);
+            if (route.length > 0) {
+                const path = route.map((nodeId: string) => {
+                    const nodeData = graph[nodeId];
+                    return new L.LatLng(nodeData.latitude, nodeData.longitude);
+                });
+                setRoutePath(path);
+                moveDrone(path, targetNode);
+                setCurrentNode(targetNode);
+            }
+        }
+    };
 
     return (
-        // <div>
-        // <iframe
-        //     className="h-screen w-screen"
-        //     src="https://www.openstreetmap.org/export/embed.html?bbox=79.56560611724855%2C13.701237426461857%2C79.60980892181398%2C13.721916812271687&amp;layer=mapnik"
-        //     style={{border: "1px solid black"}}>
-        // </iframe>
-        
-        // <br/>
-        // </div>
-        <MapContainer center={[latitude, longitude]} zoom={13} ref={mapRef} style={{height: "100vh", width: "100vw", zIndex: 1}}>
-            <TileLayer
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            >
-            </TileLayer>
+        <MapContainer center={[13.7080, 79.5920]} minZoom = {16}zoom={70} ref={mapRef} style={{ height: "100vh", width: "100vw", zIndex: 1 }}>
+            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+
             {allNodes.map((pos, idx) => (
-        <Marker key={`node-${idx}`} position={pos} eventHandlers={{
-            click: () => handleMarkerClick(graph[`node${idx + 1}`]),
-        }}>
-            <Tooltip>
-                <span>Node {idx + 1}</span>
-            </Tooltip>
-        </Marker>
-    ))}
-    {routePath.length > 0 && <Polyline positions={routePath} color="blue" />}
+                <Marker key={`node-${idx}`} position={pos} eventHandlers={{ click: () => handleMarkerClick(graph[`node${idx + 1}`]) }}>
+                    <Tooltip>
+                        <span>Node {idx + 1}</span>
+                    </Tooltip>
+                </Marker>
+            ))}
+
+            {dronePosition && (
+                <>
+                    {/* 2D Drone Marker */}
+                    <Marker position={dronePosition} icon={DroneIcon}>
+                        <Tooltip>Drone</Tooltip>
+                    </Marker>
+
+                    {/* 3D Drone Model 
+                    <CustomThreeLayer dronePosition={dronePosition} map={map} />*/}
+                </>
+            )}
+
+            {routePath.length > 0 && <Polyline positions={routePath} color="blue" />}
         </MapContainer>
-    )
-}
+    );
+};
 
 export default CampusMap;

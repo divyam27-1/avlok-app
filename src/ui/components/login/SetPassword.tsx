@@ -3,6 +3,11 @@ import './setpassword.css';
 import { useNavigate } from 'react-router-dom';
 
 function SetPassword() {
+    const navigate = useNavigate();
+ const handleSubmit = () => {
+    navigate('/loginReg'); 
+  };
+
   return (
     <div className="setpass-page-container">
       {/* Logos */}
@@ -24,7 +29,7 @@ function SetPassword() {
           <input type="password" placeholder="Confirm Password" required />
         </div>
 
-        <button className="login-button">Submit</button>
+        <button className="login-button"  onClick={handleSubmit}>Submit</button>
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import React from 'react';
 import './otp.css';
+import { useNavigate } from 'react-router-dom';
 
 function VerifyOtp() {
   return (
@@ -13,10 +14,9 @@ function VerifyOtp() {
         <p>Enter the OTP sent to your Email</p>
 
         <div className="form-group">
-          <img src="src/ui/assets/icons/lock.svg" height="22" width="20" className="minilogo" />
+          <img src="src/ui/assets/lock.svg" alt="OTP" className="w-5 h-5 ml-4 mr-4" />
           <input type="text" placeholder="Enter OTP" required />
         </div>
-
         <button className="verify-button">Verify</button>
       </div>
     </div>

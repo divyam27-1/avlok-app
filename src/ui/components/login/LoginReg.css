@@ -1,0 +1,116 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #0c0c1e;
+    background: url('src/ui/assets/iittpimage1.jpg') center/cover no-repeat fixed;
+    color: #fff;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Logos */
+  .logo {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 80px;
+  }
+  .logo2 {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 120px;
+  }
+  
+  /* Cyberpunk login card */
+  .login-card {
+    background: rgba(0, 0, 0, 0.65);
+    border: 1px solid #00ffff;
+    box-shadow: 0 0 25px #00ffff33, 0 0 60px #ff00ff22;
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 40px;
+    width: 350px;
+    text-align: center;
+  }
+  
+  /* Title */
+  .title {
+    font-size: 28px;
+    margin-bottom: 30px;
+    color: #00ffff;
+    text-shadow: 0 0 5px #00ffff, 0 0 10px #ff00ff;
+    letter-spacing: 2px;
+  }
+  
+  /* Input fields */
+  .form-group {
+    display: flex;
+    align-items: center;
+    background: #1a1a2e;
+    padding: 10px;
+    margin: 15px 0;
+    border-radius: 10px;
+    border: 1px solid #00ffff88;
+  }
+  
+  .form-group input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    margin-left: 10px;
+    font-size: 14px;
+  }
+  
+  .minilogo {
+    filter: drop-shadow(0 0 3px #00ffff);
+  }
+  
+  /* Forgot Password */
+  .forgot-password a {
+    color: #ff00ff;
+    font-size: 12px;
+    display: block;
+    margin: 10px 0;
+    text-decoration: none;
+  }
+  
+  /* Buttons */
+  .login-button, .signup-button {
+    background: white;
+    color: #000;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 12px;
+    width: 100%;
+    margin: 10px 0;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px #00ffff55, 0 0 20px #ff00ff33;
+  }
+  .minilogo {
+    filter: brightness(0) invert(1);
+  }  
+  
+  .login-button:hover, .signup-button:hover {
+    box-shadow: 0 0 20px #00ffff, 0 0 40px #ff00ff;
+  }
+  
+  /* Signup Text */
+  .signup-text {
+    font-size: 13px;
+    color: #aaa;
+    margin-top: 10px;
+  }
+  

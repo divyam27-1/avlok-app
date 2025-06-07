@@ -1,5 +1,6 @@
 import React from 'react';
 import './setpassword.css';
+import { useNavigate } from 'react-router-dom';
 
 function SetPassword() {
   return (
@@ -12,12 +13,14 @@ function SetPassword() {
         <h2 className="title">LOGIN</h2>
 
         <div className="form-group">
-          <img src="src/ui/assets/icons/lock.svg" className="minilogo" height="22" width="20" />
+                                                  <img src="src/ui/assets/lock.svg" alt="Password" className="w-5 h-5 ml-4  mr-4" />
+
           <input type="text" placeholder="New Password" required />
         </div>
 
         <div className="form-group">
-          <img src="src/ui/assets/icons/check.svg" className="minilogo" height="22" width="20" />
+                                                  <img src="src/ui/assets/check.svg" alt="Password" className="w-5 h-5 ml-4  mr-4" />
+
           <input type="password" placeholder="Confirm Password" required />
         </div>
 

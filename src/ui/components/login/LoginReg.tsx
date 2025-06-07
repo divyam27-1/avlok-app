@@ -1,38 +1,23 @@
-import React from 'react';
-import './LoginReg.css'; // Keep your CSS as is
+// src/components/Login.jsx
+import './Login.css';
+import { useNavigate } from 'react-router-dom';
 
-function LoginReg() {
+export default function Login() {
+    const navigate = useNavigate();
   return (
-    <div className="page-container">
-      {/* Logos */}
+    <div className="background-container">
       <img src="src/ui/assets/iittplogo.jpg" alt="IIT Tirupati Logo" className="logo" />
-      <img src="src/ui/assets/lg.svg" alt="IIT Tirupati Logo" className="logo2" />
+      <img src="src/ui/assets/lg.svg" alt="IIT Tirupati Logo 2" className="logo2" />
 
-      {/* Login Card */}
-      <div className="login-container login-card">
-        <h2 className="title">LOGIN</h2>
+      <div className="login-card">
+        <h1 className="title">IIT TIRUPATI</h1>
 
-        <div className="form-group">
-          <img src="/icons/envelope.svg" height="22" width="20" className="minilogo" />
-          <input type="text" placeholder="Email / Phone Number" required />
-        </div>
+        <button className="login-button"  onClick={() => navigate('/loginReg')}>ADMIN LOGIN </button>
+        <button className="login-button" onClick={() => navigate('/loginReg')}>SECURITY LOGIN</button>
 
-        <div className="form-group">
-          <img src="/icons/lock.svg" height="22" width="20" className="minilogo" />
-          <input type="password" placeholder="Password" required />
-        </div>
-
-        <div className="forgot-password">
-          <a href="#">Forgot password?</a>
-        </div>
-
-        <button className="login-button">Login</button>
-
-        <div className="signup-text">Don't have an account?</div>
-        <button className="signup-button">Sign Up</button>
+        <p className="signup-text">Don’t have an account at?</p>
+        <button className="signup-button">Sign up</button>
       </div>
     </div>
   );
 }
-
-export default LoginReg;

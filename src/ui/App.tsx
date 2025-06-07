@@ -16,12 +16,12 @@ function App() {
   return (
     <BrowserRouter>
     <Routes>
-                   <Route path="/" element={< MapNavigationView/>}/>
-        <Route path="/tele" element={<TelemetryDashboard/>}/>
+          <Route path="/mapnav" element={< MapNavigationView/>}/>
+        <Route path="/telemetry" element={<TelemetryDashboard/>}/>
       <Route path="/alert" element={<AlertStatusScreen/>}/>
       <Route path="/authority" element={<AuthorityControlPanel/>}/>
       <Route path="/dronecontrol" element={<DroneControlInterface />} />
-      <Route path="/login" element={<Login />} />
+      <Route path="/" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/setpassword" element={<SetPassword />} />
       <Route path="/verifyOtp" element={<VerifyOtp />} />

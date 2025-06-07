@@ -7,6 +7,10 @@ function LoginReg() {
       const navigate = useNavigate();
         const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+ const handleForgotPassword = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  e.preventDefault(); // prevent default anchor behavior
+  navigate('/setpassword');
+};
 
   const handleLogin = () => {
     if (username === 'satishpati' && password === 'satish@123') {
@@ -41,7 +45,7 @@ function LoginReg() {
             onChange={(e) => setPassword(e.target.value)}
           />        </div>
         <div className="forgot-password">
-          <a href="#">Forgot password?</a>
+          <a href="#" onClick={handleForgotPassword}>Forgot password?</a>
         </div>
         <button className="login-button"  onClick={handleLogin}>Login</button>
         <div className="signup-text">Don't have an account?</div>

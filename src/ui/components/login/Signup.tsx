@@ -3,6 +3,11 @@ import './signup.css';
 import { useNavigate } from 'react-router-dom';
 
 function Signup() {
+  const navigate = useNavigate();
+
+  const handleLoginClick = () => {
+    navigate('/loginReg'); 
+  };
   return (
     <div className="signup-page-container">
       {/* Logos */}
@@ -26,7 +31,7 @@ function Signup() {
 
         <div className="account-login">
           <p>Already have an account?</p>
-          <button className="verify-button">Login</button>
+          <button className="verify-button" onClick={handleLoginClick}>Login</button>
         </div>
       </div>
     </div>

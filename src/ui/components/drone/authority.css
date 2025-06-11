@@ -46,6 +46,7 @@ header::before {
 }
 
 .logo {
+    margin-left: 50px;
   font-weight: bold;
   font-size: 25px;
   color: #06e3ff;
@@ -64,7 +65,7 @@ header::before {
 }
 
 .auth-level {
-  
+    margin-left: 10px;
     padding: 4px 12px ;
     background-color: rgba(5, 217, 232, 0.15);
     color: #05d9e8;

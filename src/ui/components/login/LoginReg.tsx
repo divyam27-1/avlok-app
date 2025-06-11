@@ -14,7 +14,7 @@ function LoginReg() {
 
   const handleLogin = () => {
     if (username === 'satishpati' && password === 'satish@123') {
-      navigate('/alert');
+      navigate('/home');
     } else {
       alert('Invalid credentials');
     }

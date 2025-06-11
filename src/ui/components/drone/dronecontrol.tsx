@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import './dronecontrol.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 const DroneControlInterface = () => {
   const [activeTab, setActiveTab] = useState('monitoring');
+  const navigate = useNavigate();
+
   const switchTab = (tabId: string) => {
     setActiveTab(tabId);
   };
+  
   
 return(
     <div className="app-container">
@@ -22,14 +25,14 @@ return(
           className="tab active  control-button"
           onClick={() => switchTab('monitoring')}
         >
-          <button className="control-button">Live Monitoring</button>
+          <button className="control-button" onClick={() => navigate('/camera')}>Live Monitoring</button>
         </div>
         <br />
         <br />
 
         <div className="tab active">
          <Link to="/telemetry" style={{ textDecoration: 'none', color: 'white' }}>
-  <button className="control-button">Telemetry Data</button>
+  <button className="control-button" onClick={() => navigate('/telemetry')}>Telemetry Data</button>
 </Link>
         </div>
         <br />
@@ -37,8 +40,8 @@ return(
 
         <div className="tab active">
           
-          <Link to="/dronecontrolinterface" style={{ textDecoration: 'none', color: 'white' }}>
-  <button className="control-button">Control Panel</button>
+          <Link to="/control" style={{ textDecoration: 'none', color: 'white' }}>
+  <button className="control-button" onClick={() => navigate('/control')}>Control Panel</button>
 </Link>
         </div>
         <br />
@@ -46,8 +49,8 @@ return(
 
         <div className="tab active">
 
-              <Link to="/dronecontrolinterface" style={{ textDecoration: 'none', color: 'white' }}>
-  <button className="control-button">Navigation Map</button>
+              <Link to="/mapnav" style={{ textDecoration: 'none', color: 'white' }}>
+  <button className="control-button" onClick={() => navigate('/mapnav')}>Navigation Map</button>
 </Link>
         </div>
         <br />
@@ -55,8 +58,8 @@ return(
 
         <div className="tab active">
           
-             <Link to="/dronecontrolinterface" style={{ textDecoration: 'none', color: 'white' }}>
-  <button className="control-button">Alerts & Status</button>
+             <Link to="/alert" style={{ textDecoration: 'none', color: 'white' }}>
+  <button className="control-button" onClick={() => navigate('/alert')}>Alerts & Status</button>
 </Link>
         </div>
         <br />

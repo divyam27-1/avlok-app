@@ -19,8 +19,8 @@ function App() {
           <Route path="/mapnav" element={< MapNavigationView/>}/>
         <Route path="/telemetry" element={<TelemetryDashboard/>}/>
       <Route path="/alert" element={<AlertStatusScreen/>}/>
-      <Route path="/authority" element={<AuthorityControlPanel/>}/>
-      <Route path="/dronecontrol" element={<DroneControlInterface />} />
+      <Route path="/control" element={<AuthorityControlPanel/>}/>
+      <Route path="/home" element={<DroneControlInterface />} />
       <Route path="/" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/setpassword" element={<SetPassword />} />

@@ -1,8 +1,16 @@
 import React from 'react';
 import './authority.css';
-const AuthorityControlPanel = () => (
+import { Link, useNavigate } from 'react-router-dom';
+const AuthorityControlPanel = () => {
+    const navigate = useNavigate()
+     
+   return (
+       
+  
     <div className="container">
         <header>
+                                                                <button className="user-avatar" onClick={() => navigate('/home')}>&larr;</button>
+
             <div className="logo">Control Panel</div>
             <div className="user-panel">
                 <div className="auth-level">Level 3 Authority</div>
@@ -217,6 +225,7 @@ const AuthorityControlPanel = () => (
             </div>
         </div>
     </div>
-);
+     ) 
+    };
 
 export default AuthorityControlPanel;

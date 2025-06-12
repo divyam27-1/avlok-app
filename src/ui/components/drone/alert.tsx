@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 const AlertStatusScreen = () => {
+      const navigate = useNavigate();
+
   useEffect(() => {
     function updateTime() {
       const now = new Date();
@@ -935,6 +938,7 @@ document.querySelectorAll('.resolve-btn').forEach(btn => {
 
       <div className="container">
         <header>
+                                                                          <button className="user-avatar" onClick={() => navigate('/home')}>&larr;</button>
           <div className="logo">
             <div className="logo-icon">!</div>
             <span>Alert Center</span>

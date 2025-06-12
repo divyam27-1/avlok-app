@@ -1,9 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import Chart from 'chart.js/auto';
+import { Link, useNavigate } from 'react-router-dom';
+
 
 const TelemetryDashboard: React.FC = () => {
   const performanceChartRef = useRef<HTMLCanvasElement>(null);
   const networkChartRef = useRef<HTMLCanvasElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (performanceChartRef.current) {
@@ -156,6 +159,13 @@ const TelemetryDashboard: React.FC = () => {
           box-shadow: 0 0 15px rgba(255, 42, 109, 0.3);
           border-radius: 2px;
         }
+                  .back-button {
+                    border-radius: 50%;
+                   width:10px;
+                   background-color: #05d9e8; 
+                   color: #131327; 
+                   box-shadow: 0 0 10px rgba(5,217,232,0.7); }
+
 
         header {
           display: flex;
@@ -167,6 +177,7 @@ const TelemetryDashboard: React.FC = () => {
         }
 
         .logo {
+          margin-left: 50px;
           font-size: 28px;
           font-weight: bold;
           color: #05d9e8;
@@ -176,6 +187,8 @@ const TelemetryDashboard: React.FC = () => {
         }
 
         .user-info {
+                 padding-bottom: 10px;
+
           display: flex;
           align-items: center;
           margin-right: 20px;
@@ -395,6 +408,7 @@ const TelemetryDashboard: React.FC = () => {
         }
 
         .user-avatar {
+        margin-left: 10px;
           width: 36px;
           height: 36px;
           background-color: rgba(5, 217, 232, 0.1);
@@ -425,10 +439,14 @@ const TelemetryDashboard: React.FC = () => {
 
       <div className="container">
         <header>
+                                                      <button className="user-avatar" onClick={() => navigate('/home')}>&larr;</button>
+
           <div className="logo">Telemetry Dashboard</div>
           <div className="user-info">
             <span></span>
+
             <div className="user-avatar">SP</div>
+
           </div>
         </header>
 

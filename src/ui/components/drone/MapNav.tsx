@@ -1,9 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { Link, useNavigate } from 'react-router-dom';
 
 const MapNavigationView = () => {
   const mapRef = useRef<HTMLDivElement | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!mapRef.current) return;
@@ -136,6 +138,7 @@ const MapNavigationView = () => {
 
         .logo {
           text-align: left;
+          margin-left: 50px;
           width:200px;
           font-size: 22px;
           font-weight: bold;
@@ -711,6 +714,7 @@ const MapNavigationView = () => {
       `}</style>
 
       <header>
+                                                    <button className="user-avatar" onClick={() => navigate('/home')}>&larr;</button>
         <div className="logo">Navigation System</div>
         <div className="controls">
           <button className="btn btn-outline">View Routes</button>

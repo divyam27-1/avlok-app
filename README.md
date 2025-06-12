@@ -44,3 +44,11 @@ This project simulates a drone navigating a set of nodes represented as a graph.
 
 - Node.js (v14 or later)
 - npm or yarn
+
+## Contributors
+   - Divyam Tiwari (Software Development Lead)
+   - Aseem Anand
+   - Dhruv Pokhriyal
+   - Satish Pati
+   - Yosritha Laxmi
+   - Rohith Venkata
